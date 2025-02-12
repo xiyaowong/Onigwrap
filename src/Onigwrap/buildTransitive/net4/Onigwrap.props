@@ -1,0 +1,13 @@
+<Project>
+
+  <PropertyGroup>
+    <OnigwrapNativeLibraryPath>$(MSBuildThisFileDirectory)/../../runtimes</OnigwrapNativeLibraryPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <OnigwrapWinX86Library Include="$(OnigwrapNativeLibraryPath)/win-x86/native/libonigwrap.dll" />
+    <OnigwrapWinX64Library Include="$(OnigwrapNativeLibraryPath)/win-x64/native/libonigwrap.dll" />
+    <OnigwrapWinArm64Library Include="$(OnigwrapNativeLibraryPath)/win-arm64/native/libonigwrap.dll" />
+  </ItemGroup>
+
+</Project>

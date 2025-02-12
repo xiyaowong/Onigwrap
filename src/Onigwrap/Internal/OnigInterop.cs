@@ -3,11 +3,17 @@ using System.Runtime.InteropServices;
 
 namespace Onigwrap.Internal
 {
-    internal unsafe class OnigInterop
+    internal unsafe static class OnigInterop
     {
         private const string ONIGWRAP = "libonigwrap";
         private const CharSet charSet = CharSet.Unicode;
         private const CallingConvention convention = CallingConvention.Cdecl;
+
+#if USE_LIBRARY_LOADER
+        static OnigInterop() {
+            LibraryLoader.LoadLocalLibrary(ONIGWRAP);
+        }
+#endif
 
         [DllImport(ONIGWRAP, CharSet = charSet, CallingConvention = convention)]
         public static extern IntPtr onigwrap_create(char* pattern, int len, int ignoreCase, int multiline);

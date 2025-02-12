@@ -1,0 +1,10 @@
+<Project>
+
+  <!-- TODO: support non-Windows systems? -->
+  <ItemGroup>
+    <None Include="@(OnigwrapWinX86Library)" Link="x86/libonigwrap.dll" Visible="False" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="@(OnigwrapWinX64Library)" Link="x64/libonigwrap.dll" Visible="False" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="@(OnigwrapWinArm64Library)" Link="arm64/libonigwrap.dll" Visible="False" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
