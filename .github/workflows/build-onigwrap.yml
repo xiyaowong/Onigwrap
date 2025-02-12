@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  ONIGURUMA_REF: v6.9.9
+  ONIGURUMA_REF: v6.9.10
 
 jobs:
   build:
