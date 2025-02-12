@@ -6,6 +6,7 @@ on:
       - ./onigwrap/**
       - ./ci/**
       - ./github/workflows/build-onigwrap.yml
+  pull_request:
   workflow_call:
   workflow_dispatch:
 
