@@ -40,6 +40,17 @@ jobs:
             host: aarch64-linux-musl
             libname: libonigwrap.so
             script: generic
+            # Android
+          - name: Android x86_64
+            os: ubuntu-20.04
+            host: x86_64-linux-android30
+            libname: libonigwrap.so
+            script: android
+          - name: Android aarch64
+            os: ubuntu-20.04
+            host: aarch64-linux-android30
+            libname: libonigwrap.so
+            script: android
             # Windows
           - name: Windows x64
             os: windows-2022
@@ -149,10 +160,17 @@ jobs:
           sudo sed -i -e 's/^deb http/deb [arch=amd64] http/g' /etc/apt/sources.list
           sudo sed -i -e 's/^deb mirror/deb [arch=amd64] mirror/g' /etc/apt/sources.list
       - name: Install cross-compiling dependencies
-        if: ${{ startsWith(matrix.host, 'aarch64-linux-') }}
+        if: ${{ startsWith(matrix.host, 'aarch64-linux-') && ! contains(matrix.host, '-android') }}
         run: |
           sudo apt-get update
           sudo apt-get install gcc-aarch64-linux-gnu
+      - name: Install Android NDK
+        if: ${{ contains(matrix.host, '-android') }}
+        run: |
+          curl -LO --fail https://dl.google.com/android/repository/android-ndk-r28-linux.zip
+          unzip android-ndk-r28-linux.zip
+          sudo cp -rd --preserve=mode,links android-ndk-r28 /opt/android-ndk
+          rm -rf android-ndk-r28-linux.zip android-ndk-r28
       - name: Install musl-tools
         if: ${{ endsWith(matrix.host, '-musl') }}
         run: |
@@ -201,6 +219,8 @@ jobs:
           install -D artifacts/aarch64-linux-gnu.libonigwrap.so/libonigwrap.so -t runtimes/linux-arm64/native
           install -D artifacts/x86_64-linux-musl.libonigwrap.so/libonigwrap.so -t runtimes/linux-musl-x64/native
           install -D artifacts/aarch64-linux-musl.libonigwrap.so/libonigwrap.so -t runtimes/linux-musl-arm64/native
+          install -D artifacts/x86_64-linux-android30.libonigwrap.so/libonigwrap.so -t runtimes/linux-bionic-x64/native
+          install -D artifacts/aarch64-linux-android30.libonigwrap.so/libonigwrap.so -t runtimes/linux-bionic-arm64/native
           install -D artifacts/osx-universal.libonigwrap.dylib/libonigwrap.dylib -t runtimes/osx/native
           install -D artifacts/aarch64-w64-mingw32.libonigwrap.dll/libonigwrap.dll -t runtimes/win-arm64/native
           install -D artifacts/x86_64-w64-mingw32.libonigwrap.dll/libonigwrap.dll -t runtimes/win-x64/native
