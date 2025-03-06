@@ -17,15 +17,13 @@ namespace Onigwrap
 
         public OnigResult Search(string source, in int charOffset)
         {
-            int byteOffset = charOffset;
-
             int bestLocation = 0;
             OnigResult bestResult = null;
             int index = 0;
 
             foreach (OnigRegExp regExp in _regExps)
             {
-                OnigResult result = regExp.Search(source, byteOffset);
+                OnigResult result = regExp.Search(source, charOffset);
                 if (result != null && result.Count() > 0)
                 {
                     int location = result.LocationAt(0);
@@ -37,7 +35,7 @@ namespace Onigwrap
                         bestResult.SetIndex(index);
                     }
 
-                    if (location == byteOffset)
+                    if (location == charOffset)
                     {
                         break;
                     }
