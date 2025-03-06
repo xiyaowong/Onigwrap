@@ -18,7 +18,7 @@ namespace Onigwrap
             });
         }
 
-        internal static string ConstraintUnicodePatternLenght(string pattern)
+        internal static string ConstraintUnicodePatternLength(string pattern)
         {
             // php grammar has this kind of unicode chars, and
             // oniguruma library doesn't like them

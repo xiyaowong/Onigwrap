@@ -28,7 +28,7 @@ namespace Onigwrap
             int multilineArg = multiline ? 1 : 0;
 
             pattern = UnicodeCharEscape.AddBracesToUnicodePatterns(pattern);
-            pattern = UnicodeCharEscape.ConstraintUnicodePatternLenght(pattern);
+            pattern = UnicodeCharEscape.ConstraintUnicodePatternLength(pattern);
 
             lock (_createRegexSync)
             {
