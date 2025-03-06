@@ -52,7 +52,18 @@ namespace Onigwrap
         /// <param name="text">The text to search</param>
         /// <param name="offset">An offset from which to start</param>
         /// <returns></returns>
-        public unsafe OnigResult SafeSearch(string text, int offset = 0)
+        public OnigResult SafeSearch(string text, int offset = 0)
+        {
+            return SafeSearch(text.AsSpan(), offset);
+        }
+
+        /// <summary>
+        /// Performs a thread safe search and returns the results in a list
+        /// </summary>
+        /// <param name="text">The text to search</param>
+        /// <param name="offset">An offset from which to start</param>
+        /// <returns></returns>
+        public unsafe OnigResult SafeSearch(ReadOnlySpan<char> text, int offset = 0)
         {
             if (!Valid) throw new ArgumentException($"Invalid regular expression: {_regexString}");
 
